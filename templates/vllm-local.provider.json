@@ -1,0 +1,23 @@
+{
+  "provider": {
+    "vllm-local": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "vLLM (local)",
+      "options": {
+        "baseURL": "http://<VLLM_HOST_IP>:8000/v1",
+        "apiKey": "local-no-auth"
+      },
+      "models": {
+        "<MODEL_ID_SERVED_BY_VLLM>": {
+          "name": "vLLM Model",
+          "tools": true,
+          "reasoning": false,
+          "options": {
+            "temperature": 0.6,
+            "top_p": 0.95
+          }
+        }
+      }
+    }
+  }
+}

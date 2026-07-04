@@ -10,7 +10,9 @@
 //                      (backs up to opencode.json.bak first; preserves other providers)
 //   --out <file>       write the block JSON to a file instead of stdout
 //   --all              keep every model (skip the chat-only filter)
-//   --base-url <url>   override endpoint (default https://integrate.api.nvidia.com/v1)
+//   --base-url <url>   override endpoint (works against ANY OpenAI-compatible
+//                      /v1/models server, e.g. a local vLLM or llama.cpp)
+//   --timeout <ms>     fetch timeout (default 15000) — fails fast if server is down
 //
 // NVIDIA's free tier is OpenAI-compatible, so no shim/server is needed — this is
 // pure config. The key is only used to LIST models; it is not embedded unless you
@@ -112,11 +114,22 @@ function toEntry(id: string): ModelEntry {
 }
 
 async function fetchModels(): Promise<string[]> {
-  const res = await fetch(`${BASE_URL.replace(/\/$/, "")}/models`, {
+  const timeoutMs = Number(argValue("--timeout") ?? 15000);
+  const url = `${BASE_URL.replace(/\/$/, "")}/models`;
+  const res = await fetch(url, {
     headers: { Authorization: `Bearer ${API_KEY}` },
+    signal: AbortSignal.timeout(timeoutMs),
+  }).catch((e) => {
+    const reason =
+      e?.name === "TimeoutError"
+        ? `timed out after ${timeoutMs}ms`
+        : String(e?.message ?? e);
+    throw new Error(
+      `could not reach ${url} (${reason}). Is the server up and started with --host 0.0.0.0?`,
+    );
   });
   if (!res.ok) {
-    throw new Error(`NVIDIA /models ${res.status}: ${(await res.text()).slice(0, 200)}`);
+    throw new Error(`GET ${url} -> ${res.status}: ${(await res.text()).slice(0, 200)}`);
   }
   const data = (await res.json()) as { data: NvModel[] };
   return data.data.map((m) => m.id).sort();

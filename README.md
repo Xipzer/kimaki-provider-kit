@@ -24,11 +24,13 @@ kimaki-provider-kit/
 │   └── generate-nvidia.ts     Fetch NVIDIA's LIVE catalog -> provider block
 ├── templates/
 │   ├── nvidia-free.provider.json   Ready-to-merge NVIDIA block (key placeholdered)
-│   └── local-llama.provider.json   Local llama.cpp block skeleton
+│   ├── local-llama.provider.json   Local llama.cpp block skeleton
+│   └── vllm-local.provider.json    Local vLLM block skeleton
 ├── docs/
 │   ├── connect-local-llm.md        Wire a local llama.cpp model into Kimaki
 │   ├── connect-nvidia-free.md       Wire NVIDIA's free endpoint into Kimaki
-│   └── llama-cpp-cookbook.md        Tuned llama-server launch commands (32 GB GPU)
+│   ├── llama-cpp-cookbook.md        Tuned llama-server launch commands (32 GB GPU)
+│   └── vllm-cookbook.md             vLLM launch, vLLM-vs-llama.cpp, WSL2 caveats
 └── README.md
 ```
 
@@ -67,6 +69,29 @@ Details: [docs/connect-nvidia-free.md](docs/connect-nvidia-free.md).
 3. `/model` in Discord → pick **Local LLM**.
 
 Full walkthrough (incl. the non-obvious gotchas): [docs/connect-local-llm.md](docs/connect-local-llm.md).
+
+## vLLM: same config, different engine
+
+vLLM also exposes an **OpenAI-compatible** server, so it uses the same provider
+pattern — just point at vLLM's port (default `8000`) with
+[templates/vllm-local.provider.json](templates/vllm-local.provider.json).
+
+```bash
+vllm serve <model> --host 0.0.0.0 --port 8000
+```
+
+Reach for vLLM when you need **FP8/NVFP4 fidelity**, **multi-GPU tensor
+parallelism**, or **high concurrency**. For a single GPU serving one interactive
+user, **llama.cpp with MTP usually wins** on tokens/sec and simplicity.
+
+> **WSL2 caveat (from hands-on experience):** on a single 32 GB consumer GPU,
+> WSL2 + vLLM proved unstable (GPU-passthrough crashes, VRAM→system-RAM spillover)
+> and lost llama.cpp's built-in MTP speedup. **Native Windows llama.cpp beat WSL2
+> vLLM** for that setup. Use WSL2 vLLM only if you specifically need NVFP4/FP8 or
+> multi-GPU — and expect to babysit it.
+
+Details, launch commands, NVFP4/FP8, and the full WSL2 write-up:
+[docs/vllm-cookbook.md](docs/vllm-cookbook.md).
 
 ## Safety
 
