@@ -1,0 +1,23 @@
+{
+  "provider": {
+    "llama-local": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Local LLM",
+      "options": {
+        "baseURL": "http://<LLM_HOST_IP>:8080/v1",
+        "apiKey": "local-no-auth"
+      },
+      "models": {
+        "<MODEL_ID_FROM_/v1/models>": {
+          "name": "Local Model",
+          "tools": true,
+          "reasoning": false,
+          "options": {
+            "temperature": 0.6,
+            "top_p": 0.95
+          }
+        }
+      }
+    }
+  }
+}

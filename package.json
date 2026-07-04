@@ -1,0 +1,15 @@
+{
+  "name": "kimaki-provider-kit",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "Provider presets for connecting Kimaki / OpenCode to local llama.cpp LLMs and NVIDIA's free OpenAI-compatible endpoint, plus a self-updating NVIDIA model-list generator.",
+  "scripts": {
+    "generate:nvidia": "bun run src/generate-nvidia.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5"
+  }
+}
