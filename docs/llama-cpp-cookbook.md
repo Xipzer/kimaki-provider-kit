@@ -21,6 +21,48 @@ llama-server -m "Qwen3.6-27B-MTP-Q6_K.gguf" ^
   --cache-type-k q8_0 --cache-type-v q8_0 --no-mmap
 ```
 
+## Alternative speedup: Qwen3.6-27B + DFlash
+
+DFlash is a **different** speculative-decoding method (llama.cpp PR #22105, merged
+Jun 2026, NVIDIA + Georgi Gerganov). Instead of MTP's built-in head, it uses a
+tiny **external draft model** (~2B) that proposes a whole block of candidate
+tokens per step, which the target verifies in parallel.
+
+```bat
+llama-server -m  "Qwen3.6-27B-Q4_K_M.gguf" ^
+             -md "Qwen3.6-27B-DFlash-Q4_K_M.gguf" ^
+  --spec-type draft-dflash --spec-draft-n-max 15 ^
+  --temp 0 --top-k 1 ^
+  --host 0.0.0.0 --port 8080 ^
+  -ngl 99 -c 131072 -np 1 -fa on --jinja ^
+  --cache-type-k q8_0 --cache-type-v q8_0 --no-mmap
+```
+
+- Flag is **`--spec-type draft-dflash`** (NOT `dflash`); draft passed via **`-md`**.
+- `--spec-draft-n-max 15` = the draft block size (bigger = more speculative tokens
+  per step; 15 is the PR's Qwen3.6-27B setting).
+
+**Draft model** (the DFlash speculator is only ~2B params → ~1.2–1.5 GB at Q4_K_M):
+- Upstream: [`z-lab/Qwen3.6-27B-DFlash`](https://huggingface.co/z-lab/Qwen3.6-27B-DFlash)
+- Pre-converted GGUFs: [`Anbeeld/Qwen3.6-27B-DFlash-GGUF`](https://huggingface.co/Anbeeld/Qwen3.6-27B-DFlash-GGUF),
+  [`Alittlehammmer/Qwen3.6-27B-DFlash-GGUF-llama.cpp`](https://huggingface.co/Alittlehammmer/Qwen3.6-27B-DFlash-GGUF-llama.cpp)
+
+**PR benchmark (Qwen3.6-27B Q4_K_M, DGX Spark)** — speedup vs *unaccelerated* Q4:
+
+| Category | Baseline t/s | DFlash t/s | Speedup | Accept rate |
+|---|---|---|---|---|
+| coding | 12.63 | 39.32 | **3.11×** | 0.31 |
+| rag | 12.54 | 51.07 | **4.07×** | 0.44 |
+| reasoning | 12.56 | 30.42 | 2.42× | 0.23 |
+| **overall** | 12.57 | 33.76 | **2.69×** | 0.25 |
+
+> **MTP vs DFlash are mutually exclusive** — pick one. The daily-driver MTP config
+> above already gives a large speedup on a **Q6_K** target with **no extra draft
+> VRAM**. DFlash needs a **Q4_K_M** target (Q6→Q4 quality drop) plus the ~1.5 GB
+> draft. The PR's "2.69×" is measured vs *no acceleration*, not vs MTP — so on your
+> 5090 the real question is **DFlash-Q4 vs MTP-Q6**, which nobody has published.
+> Run the A/B: [dflash-benchmark.md](./dflash-benchmark.md).
+
 ## Vision daily driver: Gemma 4 26B-A4B MoE (~160–178 t/s)
 
 MoE, image vision via `--mmproj` (no video). ~3× faster than the 31B dense.
@@ -56,8 +98,8 @@ llama-server -m "gemma-4-31B-it-Q6_K.gguf" ^
 | **`-fa on`** | Flash attention — always on. |
 | **`--no-mmap`** | Always on for Windows. |
 | **`-ngl 99`** | All layers on GPU. |
-| **MTP** (`--spec-type mtp`) | Speculative decoding via the MTP head → the ~2.3× speedup. |
-| **DFlash** | Separate draft model for a bigger jump (`--spec-type dflash --spec-draft-ngl all`). |
+| **MTP** (`--spec-type mtp`) | Speculative decoding via the built-in MTP head → the ~2.3× speedup. No extra VRAM. |
+| **DFlash** (`--spec-type draft-dflash -md <draft>`) | Separate ~2B draft model; needs a Q4 target. Mutually exclusive with MTP — see the DFlash section + benchmark doc. |
 
 - **Framebuffer competes for VRAM.** Monitors + GPU-accelerated apps eat VRAM
   (floor ~0.8 GB, up to several GB). Overflow into system RAM kills throughput —

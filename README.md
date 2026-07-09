@@ -29,8 +29,12 @@ kimaki-provider-kit/
 ├── docs/
 │   ├── connect-local-llm.md        Wire a local llama.cpp model into Kimaki
 │   ├── connect-nvidia-free.md       Wire NVIDIA's free endpoint into Kimaki
-│   ├── llama-cpp-cookbook.md        Tuned llama-server launch commands (32 GB GPU)
+│   ├── llama-cpp-cookbook.md        Tuned llama-server launch commands (MTP, DFlash, vision)
+│   ├── dflash-benchmark.md          DFlash-vs-MTP A/B protocol (32 GB GPU)
 │   └── vllm-cookbook.md             vLLM launch, vLLM-vs-llama.cpp, WSL2 caveats
+├── bench/
+│   ├── bench-mtp.bat / bench-dflash.bat / bench-plain.bat   A/B launch scripts
+│   └── run-prompts.bat             Identical prompt harness for the A/B
 └── README.md
 ```
 
