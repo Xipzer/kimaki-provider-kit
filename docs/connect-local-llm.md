@@ -41,7 +41,7 @@ Merge the `llama-local` block from the template into
 | `baseURL` ending in `/v1` | OpenAI-compatible route prefix. |
 | `"tool_call": true` | Enables tool/function-calling (bash/read/write). Required for agentic use. **Not `"tools"`** — see the warning below. |
 | `"reasoning": false` | Most local GGUFs expose no reasoning channel; leaving it on can break parsing. |
-| `"limit": { "context", "output" }` | Tells OpenCode the real context window. Without it OpenCode guesses. `output` is **required** by the schema alongside `context`. |
+| `"limit": { "context", "output" }` | Tells OpenCode the real context window. Without it OpenCode guesses. `output` is **required** by the schema alongside `context`. The template's `131072` is a **placeholder** — set it to whatever `-c` you launched the server with, or omit the block entirely. An omitted limit is honest; a wrong one is worse than none. |
 | model key = `<MODEL_ID>` | Must match `/v1/models` `id` exactly or requests 404. Set it with llama-server's `--alias` so it is stable and not a filesystem path. |
 
 > ⚠️ **The key is `tool_call`, not `tools`.**
