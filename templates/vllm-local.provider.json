@@ -10,11 +10,18 @@
       "models": {
         "<MODEL_ID_SERVED_BY_VLLM>": {
           "name": "vLLM Model",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false,
+          "attachment": false,
+          "limit": {
+            "context": 131072,
+            "output": 32768
+          },
           "options": {
             "temperature": 0.6,
-            "top_p": 0.95
+            "top_p": 0.95,
+            "top_k": 20,
+            "min_p": 0
           }
         }
       }

@@ -15,11 +15,35 @@ plain baseline (~50 t/s) at flagship one-shot quality.
 
 ```bat
 llama-server -m "Qwen3.6-27B-MTP-Q6_K.gguf" ^
-  --spec-type mtp --spec-draft-n-max 3 ^
+  --spec-type draft-mtp --spec-draft-n-max 3 ^
   --host 0.0.0.0 --port 8080 ^
-  -ngl 99 -c 131072 -np 1 -fa on ^
+  -ngl 99 -c 131072 -np 1 -fa on --jinja ^
   --cache-type-k q8_0 --cache-type-v q8_0 --no-mmap
 ```
+
+> ⚠️ **The flag is `--spec-type draft-mtp`, not `--spec-type mtp`.**
+> It was renamed on 2026-05-13 (PR #22673) to sit alongside `draft-eagle3` and
+> `draft-dflash`. The old name **does not error** — it is silently ignored as an unknown
+> spec-type, so the model loads, generation works, and you quietly lose the entire
+> speedup. On a 27B that is roughly 120 t/s → 50 t/s with no indication anything is wrong.
+>
+> `--jinja` is also required if you want tool calling: it loads the model's real chat
+> template from GGUF metadata, which is what carries the tool-call format.
+
+**Tune `--spec-draft-n-max` at the context you actually ship, not a small one.** Draft
+acceptance falls as the value rises, and on a VRAM-constrained card a larger draft buffer
+can tip the KV cache into system RAM. Measured on a 32 GB RTX 5090 at `-c 204800`:
+
+| `--spec-draft-n-max` | tok/s | acceptance |
+|---|---|---|
+| 2 | 111.2 | 71.1% |
+| **3** | **122.9** | 64.9% |
+| 4 | 33.7 | 62.3% |
+| 6 | 19.7 | 47.3% |
+
+Only ~79 MiB of VRAM separates 3 from 4 — that is the point the driver starts evicting to
+system RAM and throughput collapses. The same sweep at `-c 32768`, where nothing spills,
+prefers 4. Benchmark at your real context or you will pick the wrong value.
 
 ## Alternative speedup: Qwen3.6-27B + DFlash
 
@@ -98,7 +122,7 @@ llama-server -m "gemma-4-31B-it-Q6_K.gguf" ^
 | **`-fa on`** | Flash attention — always on. |
 | **`--no-mmap`** | Always on for Windows. |
 | **`-ngl 99`** | All layers on GPU. |
-| **MTP** (`--spec-type mtp`) | Speculative decoding via the built-in MTP head → the ~2.3× speedup. No extra VRAM. |
+| **MTP** (`--spec-type draft-mtp`) | Speculative decoding via the built-in MTP head → the ~2.3× speedup. No extra VRAM. Renamed from `mtp` on 2026-05-13; the old name fails silently. |
 | **DFlash** (`--spec-type draft-dflash -md <draft>`) | Separate ~2B draft model; needs a Q4 target. Mutually exclusive with MTP — see the DFlash section + benchmark doc. |
 
 - **Framebuffer competes for VRAM.** Monitors + GPU-accelerated apps eat VRAM

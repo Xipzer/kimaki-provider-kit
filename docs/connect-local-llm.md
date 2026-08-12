@@ -39,9 +39,25 @@ Merge the `llama-local` block from the template into
 | `"npm": "@ai-sdk/openai-compatible"` | Uses the OpenAI-compatible adapter. |
 | `"apiKey": "local-no-auth"` | **Critical.** OpenCode only lists providers in `/model` if they have *some* credential. llama-server ignores the value; without it the provider won't appear. |
 | `baseURL` ending in `/v1` | OpenAI-compatible route prefix. |
-| `"tools": true` | Enables tool/function-calling (bash/read/write). Required for agentic use. |
+| `"tool_call": true` | Enables tool/function-calling (bash/read/write). Required for agentic use. **Not `"tools"`** — see the warning below. |
 | `"reasoning": false` | Most local GGUFs expose no reasoning channel; leaving it on can break parsing. |
-| model key = `<MODEL_ID>` | Must match `/v1/models` `id` exactly or requests 404. |
+| `"limit": { "context", "output" }` | Tells OpenCode the real context window. Without it OpenCode guesses. `output` is **required** by the schema alongside `context`. |
+| model key = `<MODEL_ID>` | Must match `/v1/models` `id` exactly or requests 404. Set it with llama-server's `--alias` so it is stable and not a filesystem path. |
+
+> ⚠️ **The key is `tool_call`, not `tools`.**
+> The OpenCode model schema is `additionalProperties: false` and has no `tools` key, so
+> `"tools": true` is **silently ignored** — the config loads, requests work, and tool
+> calling is simply never enabled. There is no error or warning. If your local model
+> appears to ignore tools, check this first.
+>
+> Verify against the running server rather than the file, since OpenCode normalises the
+> key into `capabilities.toolcall`:
+>
+> ```bash
+> curl -s http://127.0.0.1:<opencode-port>/config/providers \
+>   | python3 -c "import json,sys; [print(m['id'], m['capabilities']['toolcall']) \
+>       for p in json.load(sys.stdin) if 'llama' in p['id'] for m in p['models'].values()]"
+> ```
 
 ## 3. Verify
 

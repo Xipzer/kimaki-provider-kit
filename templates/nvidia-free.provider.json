@@ -10,440 +10,440 @@
       "models": {
         "01-ai/yi-large": {
           "name": "Yi Large",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "abacusai/dracarys-llama-3.1-70b-instruct": {
           "name": "Dracarys Llama 3.1 70B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "ai21labs/jamba-1.5-large-instruct": {
           "name": "Jamba 1.5 Large",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "aisingapore/sea-lion-7b-instruct": {
           "name": "SEA Lion 7B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "bigcode/starcoder2-15b": {
           "name": "Starcoder2 15B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "bytedance/seed-oss-36b-instruct": {
           "name": "Seed OSS 36B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "databricks/dbrx-instruct": {
           "name": "Dbrx",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "deepseek-ai/deepseek-coder-6.7b-instruct": {
           "name": "Deepseek Coder 6.7B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "deepseek-ai/deepseek-v4-flash": {
           "name": "Deepseek V4 Flash",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "deepseek-ai/deepseek-v4-pro": {
           "name": "Deepseek V4 PRO",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "google/codegemma-1.1-7b": {
           "name": "Codegemma 1.1 7B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "google/codegemma-7b": {
           "name": "Codegemma 7B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "google/gemma-2-2b-it": {
           "name": "Gemma 2 2B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "google/gemma-2b": {
           "name": "Gemma 2B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "google/gemma-3-12b-it": {
           "name": "Gemma 3 12B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "google/gemma-3-4b-it": {
           "name": "Gemma 3 4B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "google/gemma-3n-e2b-it": {
           "name": "Gemma 3n E2b",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "google/gemma-3n-e4b-it": {
           "name": "Gemma 3n E4b",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "google/gemma-4-31b-it": {
           "name": "Gemma 4 31B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "ibm/granite-3.0-3b-a800m-instruct": {
           "name": "Granite 3.0 3B A800m",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "ibm/granite-3.0-8b-instruct": {
           "name": "Granite 3.0 8B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "ibm/granite-34b-code-instruct": {
           "name": "Granite 34B Code",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "ibm/granite-8b-code-instruct": {
           "name": "Granite 8B Code",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "meta/codellama-70b": {
           "name": "Codellama 70B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "meta/llama-3.1-70b-instruct": {
           "name": "Llama 3.1 70B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "meta/llama-3.1-8b-instruct": {
           "name": "Llama 3.1 8B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "meta/llama-3.2-11b-vision-instruct": {
           "name": "Llama 3.2 11B Vision",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false,
           "attachment": true
         },
         "meta/llama-3.2-1b-instruct": {
           "name": "Llama 3.2 1B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "meta/llama-3.2-3b-instruct": {
           "name": "Llama 3.2 3B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "meta/llama-3.2-90b-vision-instruct": {
           "name": "Llama 3.2 90B Vision",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false,
           "attachment": true
         },
         "meta/llama-3.3-70b-instruct": {
           "name": "Llama 3.3 70B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "meta/llama-4-maverick-17b-128e-instruct": {
           "name": "Llama 4 Maverick 17B 128e",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false,
           "attachment": true
         },
         "meta/llama2-70b": {
           "name": "Llama2 70B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "microsoft/phi-3-vision-128k-instruct": {
           "name": "Phi 3 Vision 128k",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false,
           "attachment": true
         },
         "microsoft/phi-3.5-moe-instruct": {
           "name": "Phi 3.5 MOE",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "microsoft/phi-4-mini-instruct": {
           "name": "Phi 4 Mini",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "microsoft/phi-4-multimodal-instruct": {
           "name": "Phi 4 Multimodal",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true,
           "attachment": true
         },
         "minimaxai/minimax-m2.7": {
           "name": "Minimax M2.7",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "minimaxai/minimax-m3": {
           "name": "Minimax M3",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "mistralai/codestral-22b-instruct-v0.1": {
           "name": "Codestral 22B V0.1",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "mistralai/ministral-14b-instruct-2512": {
           "name": "Ministral 14B 2512",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "mistralai/mistral-7b-instruct-v0.3": {
           "name": "Mistral 7B V0.3",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "mistralai/mistral-large": {
           "name": "Mistral Large",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "mistralai/mistral-large-2-instruct": {
           "name": "Mistral Large 2",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "mistralai/mistral-large-3-675b-instruct-2512": {
           "name": "Mistral Large 3 675B 2512",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "mistralai/mistral-medium-3.5-128b": {
           "name": "Mistral Medium 3.5 128B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "mistralai/mistral-nemotron": {
           "name": "Mistral Nemotron",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "mistralai/mistral-small-4-119b-2603": {
           "name": "Mistral Small 4 119B 2603",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "mistralai/mixtral-8x22b-v0.1": {
           "name": "Mixtral 8X22B V0.1",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "mistralai/mixtral-8x7b-instruct-v0.1": {
           "name": "Mixtral 8X7B V0.1",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "moonshotai/kimi-k2.6": {
           "name": "Kimi K2.6",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "nv-mistralai/mistral-nemo-12b-instruct": {
           "name": "Mistral Nemo 12B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "nvidia/cosmos-reason2-8b": {
           "name": "Cosmos Reason2 8B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "nvidia/llama-3.1-nemotron-51b-instruct": {
           "name": "Llama 3.1 Nemotron 51B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "nvidia/llama-3.1-nemotron-70b-instruct": {
           "name": "Llama 3.1 Nemotron 70B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "nvidia/llama-3.1-nemotron-nano-8b-v1": {
           "name": "Llama 3.1 Nemotron Nano 8B V1",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "nvidia/llama-3.1-nemotron-nano-vl-8b-v1": {
           "name": "Llama 3.1 Nemotron Nano VL 8B V1",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true,
           "attachment": true
         },
         "nvidia/llama-3.1-nemotron-ultra-253b-v1": {
           "name": "Llama 3.1 Nemotron Ultra 253B V1",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "nvidia/llama-3.3-nemotron-super-49b-v1": {
           "name": "Llama 3.3 Nemotron Super 49B V1",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "nvidia/llama-3.3-nemotron-super-49b-v1.5": {
           "name": "Llama 3.3 Nemotron Super 49B V1.5",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "nvidia/mistral-nemo-minitron-8b-8k-instruct": {
           "name": "Mistral Nemo Minitron 8B 8k",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "nvidia/nemotron-3-nano-30b-a3b": {
           "name": "Nemotron 3 Nano 30B A3b",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning": {
           "name": "Nemotron 3 Nano Omni 30B A3b Reasoning",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true,
           "attachment": true
         },
         "nvidia/nemotron-3-super-120b-a12b": {
           "name": "Nemotron 3 Super 120B A12b",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "nvidia/nemotron-3-ultra-550b-a55b": {
           "name": "Nemotron 3 Ultra 550B A55b",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "nvidia/nemotron-4-340b-instruct": {
           "name": "Nemotron 4 340B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "nvidia/nemotron-mini-4b-instruct": {
           "name": "Nemotron Mini 4B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "nvidia/nemotron-nano-12b-v2-vl": {
           "name": "Nemotron Nano 12B V2 VL",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true,
           "attachment": true
         },
         "nvidia/nemotron-nano-3-30b-a3b": {
           "name": "Nemotron Nano 3 30B A3b",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "nvidia/nvidia-nemotron-nano-9b-v2": {
           "name": "Nvidia Nemotron Nano 9B V2",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "openai/gpt-oss-120b": {
           "name": "GPT OSS 120B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "openai/gpt-oss-20b": {
           "name": "GPT OSS 20B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "qwen/qwen3-next-80b-a3b-instruct": {
           "name": "Qwen3 Next 80B A3b",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "qwen/qwen3.5-122b-a10b": {
           "name": "Qwen3.5 122B A10b",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "qwen/qwen3.5-397b-a17b": {
           "name": "Qwen3.5 397B A17b",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "sarvamai/sarvam-m": {
           "name": "Sarvam M",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "stepfun-ai/step-3.5-flash": {
           "name": "Step 3.5 Flash",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "stepfun-ai/step-3.7-flash": {
           "name": "Step 3.7 Flash",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "stockmark/stockmark-2-100b-instruct": {
           "name": "Stockmark 2 100B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "upstage/solar-10.7b-instruct": {
           "name": "Solar 10.7B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "writer/palmyra-creative-122b": {
           "name": "Palmyra Creative 122B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "writer/palmyra-fin-70b-32k": {
           "name": "Palmyra FIN 70B 32k",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "writer/palmyra-med-70b": {
           "name": "Palmyra MED 70B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "writer/palmyra-med-70b-32k": {
           "name": "Palmyra MED 70B 32k",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         },
         "z-ai/glm-5.2": {
           "name": "GLM 5.2",
-          "tools": true,
+          "tool_call": true,
           "reasoning": true
         },
         "zyphra/zamba2-7b-instruct": {
           "name": "Zamba2 7B",
-          "tools": true,
+          "tool_call": true,
           "reasoning": false
         }
       }

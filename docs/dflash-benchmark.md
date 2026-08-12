@@ -10,7 +10,7 @@ nobody has published. This doc is the exact A/B to settle it on a 32 GB card
 
 | Config | Target | Draft | Method | Quality baseline |
 |---|---|---|---|---|
-| **A — MTP (current)** | Qwen3.6-27B-**MTP-Q6_K** | (built-in head) | `--spec-type mtp` | Q6 |
+| **A — MTP (current)** | Qwen3.6-27B-**MTP-Q6_K** | (built-in head) | `--spec-type draft-mtp` | Q6 |
 | **B — DFlash** | Qwen3.6-27B-**Q4_K_M** | Qwen3.6-27B-DFlash-Q4_K_M | `--spec-type draft-dflash` | Q4 |
 | **C — plain (control)** | Qwen3.6-27B-**Q6_K** | none | none | Q6 |
 
