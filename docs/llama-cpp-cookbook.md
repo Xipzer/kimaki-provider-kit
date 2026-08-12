@@ -82,10 +82,20 @@ llama-server -m  "Qwen3.6-27B-Q4_K_M.gguf" ^
 
 > **MTP vs DFlash are mutually exclusive** — pick one. The daily-driver MTP config
 > above already gives a large speedup on a **Q6_K** target with **no extra draft
-> VRAM**. DFlash needs a **Q4_K_M** target (Q6→Q4 quality drop) plus the ~1.5 GB
-> draft. The PR's "2.69×" is measured vs *no acceleration*, not vs MTP — so on your
-> 5090 the real question is **DFlash-Q4 vs MTP-Q6**, which nobody has published.
-> Run the A/B: [dflash-benchmark.md](./dflash-benchmark.md).
+> VRAM**. DFlash adds a ~1.5 GB draft model on top of the target.
+>
+> **Target quant is a VRAM-budget question, not a DFlash requirement.** Nothing in
+> PR #22105 mandates a Q4 target; DFlash against a **Q6_K** target is deployed and
+> working (measured on a 5090 via the BeeLlama fork with turbo3_tcq KV). If
+> target + draft + KV overflow your card, prefer reducing context or KV quant
+> before downgrading the target. Note: DFlash-at-Q6 on **mainline** llama.cpp is
+> still unmeasured — one A/B run pending.
+>
+> Measured on a 5090 (mainline, q8_0 KV): **MTP ≈ 123 t/s** beats
+> **DFlash ≈ 100 t/s** at short context; DFlash wins at very deep context
+> (~48 t/s at 250K) — an engine-specific result via BeeLlama's turbo3_tcq
+> (262K @ ~28 GB), which mainline's q8_0 (~200K cap) can't match.
+> Protocol + scripts: [dflash-benchmark.md](./dflash-benchmark.md).
 
 ## Vision daily driver: Gemma 4 26B-A4B MoE (~160–178 t/s)
 
